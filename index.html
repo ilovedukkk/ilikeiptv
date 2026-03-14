@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Web IPTV Player</title>
+    <!-- Modern Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 </head>
@@ -34,6 +39,11 @@
         <div id="main-content" class="main-content">
             <div class="player-container">
                 <video id="video-player" controls class="navigable" data-nav="video-player"></video>
+                
+                <!-- OSD Error Overlay -->
+                <div id="player-error" class="player-error hidden"></div>
+
+                <!-- OSD Title Overlay -->
                 <div id="player-overlay" class="player-overlay hidden">
                     <h3 id="current-channel-name">No Channel Selected</h3>
                 </div>

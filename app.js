@@ -50,11 +50,23 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
+        // Use DocumentFragment for faster rendering of potentially long lists
+        const fragment = document.createDocumentFragment();
+
         channels.forEach((channel, index) => {
             const div = document.createElement("div");
             div.className = "channel-item navigable";
             div.dataset.nav = `channel-${index}`;
-            div.textContent = channel.name || `Channel ${index + 1}`;
+            
+            // Build channel DOM structure (Logo + Title)
+            const imgHTML = channel.logo 
+                ? `<img src="${channel.logo}" class="channel-logo" loading="lazy" alt="logo" onerror="this.style.display='none'">` 
+                : `<div class="channel-logo" style="display:flex;align-items:center;justify-content:center;font-size:10px;color:#666;">No Logo</div>`;
+            
+            div.innerHTML = `
+                ${imgHTML}
+                <div class="channel-name">${channel.name || `Channel ${index + 1}`}</div>
+            `;
             
             // Mark as active if it is currently playing
             if (currentChannelData && currentChannelData.url === channel.url) {
@@ -66,8 +78,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 selectChannel(channel, div);
             });
 
-            channelListEl.appendChild(div);
+            fragment.appendChild(div);
         });
+
+        channelListEl.appendChild(fragment);
 
         // Update spatial navigation targets since DOM changed
         updateNavigables();

@@ -46,13 +46,20 @@ function parseM3U(m3uContent) {
         if (line === '') continue;
         
         if (line.startsWith('#EXTINF:')) {
-            // Extract channel name
-            // Basic extraction: #EXTINF:-1 tvg-id="" tvg-name="",Channel Name
+            // Extract channel name: #EXTINF:-1 tvg-id="" tvg-name="",Channel Name
             const lastCommaIndex = line.lastIndexOf(',');
             if (lastCommaIndex !== -1) {
                 currentChannel.name = line.substring(lastCommaIndex + 1).trim();
             } else {
                 currentChannel.name = "Unknown Channel";
+            }
+
+            // Extract tvg-logo
+            const logoMatch = line.match(/tvg-logo="([^"]+)"/i);
+            if (logoMatch && logoMatch[1]) {
+                currentChannel.logo = logoMatch[1];
+            } else {
+                currentChannel.logo = null;
             }
         } else if (!line.startsWith('#')) {
             // This line is assumed to be the stream URL
