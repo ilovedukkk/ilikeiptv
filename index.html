@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web IPTV Player</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- Sidebar -->
+        <div id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <h2>IPTV Player</h2>
+            </div>
+            
+            <div class="url-loader">
+                <input type="text" id="playlist-url" placeholder="Enter M3U URL..." class="navigable focusable" data-nav="url-input" />
+                <button id="load-btn" class="navigable focusable" data-nav="load-btn">Load</button>
+            </div>
+
+            <div class="search-container">
+                <input type="text" id="search-input" placeholder="Search channels..." class="navigable focusable" data-nav="search-input" />
+            </div>
+
+            <div id="channel-list" class="channel-list">
+                <!-- Channels will be populated here -->
+                <div class="empty-state">No channels loaded. Enter a URL above.</div>
+            </div>
+        </div>
+
+        <!-- Video Player Area -->
+        <div id="main-content" class="main-content">
+            <div class="player-container">
+                <video id="video-player" controls class="navigable" data-nav="video-player"></video>
+                <div id="player-overlay" class="player-overlay hidden">
+                    <h3 id="current-channel-name">No Channel Selected</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Application Logic -->
+    <script src="player.js"></script>
+    <script src="playlist.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
